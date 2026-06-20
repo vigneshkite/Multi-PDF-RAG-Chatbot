@@ -17,8 +17,10 @@ def get_cross_encoder() -> CrossEncoder:
     global _cross_encoder
     if _cross_encoder is None:
         print("Loading cross-encoder re-ranking model (first time only)...")
-        # bge-reranker-base is small, fast, and strong for general-purpose re-ranking
-        _cross_encoder = CrossEncoder("BAAI/bge-reranker-base")
+        # ms-marco-MiniLM-L6-v2 is much smaller than bge-reranker-base
+        # (~90MB vs ~1.1GB), so it needs far less RAM/page-file space to load,
+        # while still being a strong, widely-used general-purpose re-ranker.
+        _cross_encoder = CrossEncoder("cross-encoder/ms-marco-MiniLM-L6-v2")
     return _cross_encoder
 
 
